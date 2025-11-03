@@ -13,7 +13,10 @@ class LicenseRules:
         salience=900
     )
     def reject_gpl_commercial(self, lib):
-        self.retract(self.get_fact(RecommendationFact, library=lib))
+        # Находим и удаляем рекомендацию
+        recommendation = self.find_recommendation_fact(lib)
+        if recommendation:
+            self.retract(recommendation)
         self.declare(WarningFact(
             message=f"Библиотека {lib} отклонена: GPL лицензия не подходит для коммерческого проекта",
             type='license'
@@ -21,26 +24,13 @@ class LicenseRules:
 
     @Rule(
         RecommendationFact(library=MATCH.lib),
-        LibraryFact(name=MATCH.lib, license='MIT'),
+        LibraryFact(name=MATCH.lib, license=L('MIT') | L('Apache 2.0') | L('BSD')),
         salience=900
     )
-    def allow_mit(self, lib):
+    def allow_open_source(self, lib):
         self.declare(RecommendationFact(
             library=lib,
-            reason=f"MIT лицензия разрешена",
-            priority='medium',
-            approved=True
-        ))
-
-    @Rule(
-        RecommendationFact(library=MATCH.lib),
-        LibraryFact(name=MATCH.lib, license='Apache 2.0'),
-        salience=900
-    )
-    def allow_apache(self, lib):
-        self.declare(RecommendationFact(
-            library=lib,
-            reason=f"Apache 2.0 лицензия разрешена",
+            reason=f"Открытая лицензия разрешена",
             priority='medium',
             approved=True
         ))

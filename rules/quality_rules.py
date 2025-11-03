@@ -13,7 +13,9 @@ class QualityRules:
         salience=400
     )
     def reject_outdated(self, lib, update):
-        self.retract(self.get_fact(RecommendationFact, library=lib))
+        recommendation = self.find_recommendation_fact(lib)
+        if recommendation:
+            self.retract(recommendation)
         self.declare(WarningFact(
             message=f"Библиотека {lib} отклонена: последнее обновление было в {update} году",
             type='quality'
@@ -49,7 +51,10 @@ class QualityRules:
         salience=400
     )
     def boost_active_community(self, lib):
-        # Повышаем приоритет для библиотек с активным сообществом
-        self.modify(self.get_fact(RecommendationFact, library=lib),
-                    community_support=True,
-                    priority='high')
+        # Создаем новую рекомендацию с повышенным приоритетом
+        self.declare(RecommendationFact(
+            library=lib,
+            reason="Активное сообщество и поддержка",
+            priority='high',
+            community_support=True
+        ))

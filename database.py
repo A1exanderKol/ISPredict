@@ -74,7 +74,7 @@ class DatabaseManager:
             library_id = result[0]
             cursor.execute('''
                 INSERT INTO project_libraries (id_project, id_library, reason, risk, library_status)
-                VALUES (?, ?, ?, ?, 'recommended')
+                VALUES (?, ?, ?, ?, 'active')  -- ИЗМЕНИЛИ 'recommended' на 'active'
             ''', (project_id, library_id, reason, risk_level))
 
         conn.commit()
@@ -117,8 +117,8 @@ class DatabaseManager:
         cursor.execute('''
             INSERT INTO libraries (
                 library_name, version, compatibility, license, category,
-                known_vulnerabilities, reputation, developer, repo_url, size_mb
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                known_vulnerabilities, reputation, developer, repo_url
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         ''', (
             library_data['library_name'],
             library_data['version'],
@@ -128,11 +128,50 @@ class DatabaseManager:
             library_data.get('known_vulnerabilities', ''),
             library_data.get('reputation', 5),
             library_data.get('developer', ''),
-            library_data.get('repo_url', ''),
-            library_data.get('size_mb', 0)
+            library_data.get('repo_url', '')
         ))
 
         library_id = cursor.lastrowid
         conn.commit()
         conn.close()
         return library_id
+
+    def get_vulnerable_libraries(self):
+        """Получить библиотеки с уязвимостями"""
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        cursor.execute('''
+            SELECT library_name, version, known_vulnerabilities, reputation
+            FROM libraries 
+            WHERE known_vulnerabilities IS NOT NULL 
+            AND LENGTH(TRIM(known_vulnerabilities)) > 0
+        ''')
+        libraries = cursor.fetchall()
+        conn.close()
+
+        columns = [description[0] for description in cursor.description]
+        return [dict(zip(columns, lib)) for lib in libraries]
+
+    def get_project_library_overview(self):
+        """Получить обзор проектов и их библиотек"""
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        cursor.execute('''
+            SELECT 
+                p.project_name,
+                p.programming_language,
+                l.library_name,
+                l.version AS library_version,
+                pl.added_date,
+                pl.library_status,
+                l.reputation,
+                l.known_vulnerabilities
+            FROM projects p
+            JOIN project_libraries pl ON p.id_project = pl.id_project
+            JOIN libraries l ON l.id_library = pl.id_library
+        ''')
+        results = cursor.fetchall()
+        conn.close()
+
+        columns = [description[0] for description in cursor.description]
+        return [dict(zip(columns, row)) for row in results]

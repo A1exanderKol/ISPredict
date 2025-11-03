@@ -9,14 +9,11 @@ class PerformanceRules:
     @Rule(
         ProjectFact(project_type='mobile'),
         RecommendationFact(library=MATCH.lib),
-        LibraryFact(name=MATCH.lib, size_mb=MATCH.size),
-        TEST(lambda size: size > 5),
         salience=700
     )
-    def reject_heavy_mobile(self, lib, size):
-        self.retract(self.get_fact(RecommendationFact, library=lib))
+    def warn_mobile_performance(self, lib):
         self.declare(WarningFact(
-            message=f"Библиотека {lib} отклонена: размер {size} МБ слишком большой для мобильного приложения",
+            message=f"Для мобильного приложения рекомендуется проверить размер библиотеки {lib}",
             type='performance'
         ))
 

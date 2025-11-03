@@ -13,7 +13,9 @@ class ParadigmRules:
         salience=500
     )
     def reject_non_oop(self, lib):
-        self.retract(self.get_fact(RecommendationFact, library=lib))
+        recommendation = self.find_recommendation_fact(lib)
+        if recommendation:
+            self.retract(recommendation)
         self.declare(WarningFact(
             message=f"Библиотека {lib} отклонена: не поддерживает ООП парадигму",
             type='paradigm'
@@ -50,7 +52,9 @@ class ParadigmRules:
         salience=500
     )
     def reject_non_concurrent(self, lib):
-        self.retract(self.get_fact(RecommendationFact, library=lib))
+        recommendation = self.find_recommendation_fact(lib)
+        if recommendation:
+            self.retract(recommendation)
         self.declare(WarningFact(
             message=f"Библиотека {lib} отклонена: не поддерживает параллельные вычисления",
             type='paradigm'
