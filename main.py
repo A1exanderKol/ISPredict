@@ -50,20 +50,20 @@ def main():
         results = kb.analyze_project(project_id)
 
         # Выводим результаты
-        print(f"\n📚 РЕКОМЕНДАЦИИ для проекта '{project_data['project_name']}':")
+        print(f"\nРЕКОМЕНДАЦИИ для проекта '{project_data['project_name']}':")
         for j, rec in enumerate(results['recommendations'], 1):
             print(f"  {j}. {rec['library']} - {rec['reason']} (приоритет: {rec['priority']})")
 
-        print(f"\n⚠️  ПРЕДУПРЕЖДЕНИЯ:")
+        print(f"\n ПРЕДУПРЕЖДЕНИЯ:")
         if results['warnings']:
             for j, warning in enumerate(results['warnings'], 1):
                 print(f"  {j}. {warning}")
         else:
-            print("  Нет предупреждений")
+            print("Нет предупреждений")
 
-        print(f"\n💾 Рекомендации сохранены в базу данных для проекта #{project_id}")
+        print(f"\nРекомендации сохранены в базу данных для проекта #{project_id}")
 
-    print(f"\n🎉 ТЕСТИРОВАНИЕ ЗАВЕРШЕНО! Проанализировано {len(tests.test_projects)} проектов.")
+    print(f"\nТЕСТИРОВАНИЕ ЗАВЕРШЕНО! Проанализировано {len(tests.test_projects)} проектов.")
 
 
 if __name__ == "__main__":
