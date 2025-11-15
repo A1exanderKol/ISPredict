@@ -3,7 +3,7 @@ test_projects = [
         'project_name': 'Финансовая аналитическая платформа',
         'programming_language': 'Python',
         'architecture': 'MVC',
-        'description': 'Веб-платформа для анализа финансовых данных с хранением в базе данных и REST API. Коммерческий проект для банковского сектора с требованиями высокой производительности.',
+        'description': 'Веб-платформа для анализа финансовых данных с хранением в базе данных и REST API. Коммерческий проект для банковского сектора с требованиями высокой производительности. Используется машинное обучение для прогнозирования рынков.',
         'performance_requirements': 'Высокая производительность для анализа в реальном времени',
         'security_requirements': 'Шифрование и безопасная аутентификация',
         'project_status': 'in development',
@@ -13,13 +13,192 @@ test_projects = [
         'project_name': 'Мобильное приложение для здоровья',
         'programming_language': 'JavaScript',
         'architecture': 'SPA',
-        'description': 'Мобильное приложение для отслеживания показателей здоровья с синхронизацией данных через REST API. Функциональное программирование, медицинский сектор.',
+        'description': 'Мобильное приложение для отслеживания показателей здоровья с синхронизацией данных через REST API. Функциональное программирование, медицинский сектор. Интеграция с wearable устройствами.',
         'performance_requirements': 'Оптимизация для мобильных устройств',
         'security_requirements': 'Защита медицинских данных',
         'project_status': 'active',
         'version': '2.1'
     },
-
+    {
+        'project_name': 'Государственный портал услуг',
+        'programming_language': 'Java',
+        'architecture': 'Microservices',
+        'description': 'Портал государственных услуг с интеграцией различных ведомств. Требуется открытый исходный код, высокая безопасность. Обработка персональных данных граждан.',
+        'performance_requirements': 'Высокая доступность',
+        'security_requirements': 'Сертификация ФСТЭК, шифрование данных',
+        'project_status': 'in development',
+        'version': '1.0'
+    },
+    {
+        'project_name': 'Система анализа больших данных',
+        'programming_language': 'Python',
+        'architecture': 'Distributed',
+        'description': 'Платформа для обработки и анализа больших объемов данных в реальном времени. Требуются библиотеки для параллельных вычислений и работы с большими данными. Машинное обучение для выявления аномалий.',
+        'performance_requirements': 'Обработка терабайтов данных',
+        'security_requirements': 'Шифрование данных, контроль доступа',
+        'project_status': 'active',
+        'version': '3.2'
+    },
+    {
+        'project_name': 'Высоконагруженный REST API сервис',
+        'programming_language': 'C#',
+        'architecture': 'REST API',
+        'description': 'Микросервис для обработки высоконагруженных HTTP запросов с интеграцией с базой данных. Коммерческий проект. Реализация асинхронных операций.',
+        'performance_requirements': 'Обработка 10000+ запросов в секунду',
+        'security_requirements': 'OAuth 2.0, JWT, защита от DDoS',
+        'project_status': 'in development',
+        'version': '1.5'
+    },
+    {
+        'project_name': 'Интернет-магазин электроники',
+        'programming_language': 'JavaScript',
+        'architecture': 'MERN Stack',
+        'description': 'Полнофункциональный интернет-магазин с системой рекомендаций на основе AI. Интеграция с платежными системами. Progressive Web App для мобильных пользователей.',
+        'performance_requirements': 'Быстрая загрузка страниц, кэширование',
+        'security_requirements': 'PCI DSS compliance, защита платежей',
+        'project_status': 'active',
+        'version': '4.0'
+    },
+    {
+        'project_name': 'IoT платформа для умного дома',
+        'programming_language': 'Python',
+        'architecture': 'Event-driven',
+        'description': 'Платформа для управления устройствами умного дома через веб-интерфейс и мобильное приложение. Асинхронная обработка событий. Интеграция с голосовыми помощниками.',
+        'performance_requirements': 'Низкая задержка, обработка в реальном времени',
+        'security_requirements': 'Шифрование IoT устройств, безопасное обновление',
+        'project_status': 'in development',
+        'version': '1.0'
+    },
+    {
+        'project_name': 'Образовательная платформа с VR',
+        'programming_language': 'JavaScript',
+        'architecture': 'JAMStack',
+        'description': 'Онлайн платформа для дистанционного обучения с интерактивными курсами и VR компонентами. Система тестирования и аналитики успеваемости.',
+        'performance_requirements': 'Потоковое видео, 3D графика',
+        'security_requirements': 'Защита персональных данных, DRM',
+        'project_status': 'active',
+        'version': '2.3'
+    },
+    {
+        'project_name': 'Блокчейн платформа для supply chain',
+        'programming_language': 'Java',
+        'architecture': 'Blockchain',
+        'description': 'Децентрализованная платформа для отслеживания цепочек поставок. Смарт-контракты для автоматизации процессов. Коммерческий проект для логистических компаний.',
+        'performance_requirements': 'Высокая пропускная способность транзакций',
+        'security_requirements': 'Криптографическая защита, immutable ledger',
+        'project_status': 'in development',
+        'version': '1.2'
+    },
+    {
+        'project_name': 'Система компьютерного зрения для производства',
+        'programming_language': 'Python',
+        'architecture': 'Client-Server',
+        'description': 'Система для автоматического контроля качества на производственной линии с использованием компьютерного зрения. Deep learning модели для обнаружения дефектов.',
+        'performance_requirements': 'Обработка видео в реальном времени',
+        'security_requirements': 'Защита интеллектуальной собственности',
+        'project_status': 'active',
+        'version': '3.1'
+    },
+    {
+        'project_name': 'Многопользовательская онлайн игра',
+        'programming_language': 'C#',
+        'architecture': 'Client-Server',
+        'description': 'Многопользовательская RPG игра с открытым миром. Реализация на Unity с серверной частью на .NET. Система микротранзакций и социальных функций.',
+        'performance_requirements': 'Низкая задержка, синхронизация игрового мира',
+        'security_requirements': 'Защита от читов, безопасность платежей',
+        'project_status': 'in development',
+        'version': '0.8'
+    },
+    {
+        'project_name': 'Система управления складом',
+        'programming_language': 'Java',
+        'architecture': 'Monolith',
+        'description': 'Корпоративная система управления складскими запасами и логистикой. Интеграция с ERP системами. Генерация отчетов и аналитика.',
+        'performance_requirements': 'Обработка большого количества транзакций',
+        'security_requirements': 'Ролевая модель доступа, аудит действий',
+        'project_status': 'active',
+        'version': '5.2'
+    },
+    {
+        'project_name': 'Платформа для Data Science исследований',
+        'programming_language': 'Python',
+        'architecture': 'Jupyter-based',
+        'description': 'Облачная платформа для проведения Data Science экспериментов. Поддержка Jupyter ноутбуков, версионирование моделей, распределенные вычисления.',
+        'performance_requirements': 'Вычисления на GPU, большие объемы памяти',
+        'security_requirements': 'Изоляция сред, защита данных',
+        'project_status': 'in development',
+        'version': '2.0'
+    },
+    {
+        'project_name': 'Мобильный банкинг',
+        'programming_language': 'JavaScript',
+        'architecture': 'Cross-platform',
+        'description': 'Мобильное приложение для банковских операций. React Native для кроссплатформенной разработки. Биометрия для аутентификации.',
+        'performance_requirements': 'Быстрый отклик, оптимизация батареи',
+        'security_requirements': 'Банковский уровень безопасности, шифрование',
+        'project_status': 'active',
+        'version': '3.5'
+    },
+    {
+        'project_name': 'Система мониторинга IT инфраструктуры',
+        'programming_language': 'Go',
+        'architecture': 'Microservices',
+        'description': 'Распределенная система мониторинга серверов, сетей и приложений. Сбор метрик, алертинг, дашборды. Интеграция с популярными системами мониторинга.',
+        'performance_requirements': 'Обработка миллионов метрик в минуту',
+        'security_requirements': 'TLS шифрование, аутентификация',
+        'project_status': 'in development',
+        'version': '1.1'
+    },
+    {
+        'project_name': 'Платформа электронного голосования',
+        'programming_language': 'Python',
+        'architecture': 'Blockchain',
+        'description': 'Система для проведения безопасных электронных выборов. Использование блокчейна для обеспечения прозрачности и неизменности результатов.',
+        'performance_requirements': 'Масштабируемость для миллионов пользователей',
+        'security_requirements': 'Криптография, анонимность, верификация',
+        'project_status': 'active',
+        'version': '2.0'
+    },
+    {
+        'project_name': 'AI ассистент для поддержки клиентов',
+        'programming_language': 'Python',
+        'architecture': 'Serverless',
+        'description': 'Чат-бот с искусственным интеллектом для автоматизации поддержки клиентов. NLP для понимания запросов, интеграция с CRM.',
+        'performance_requirements': 'Низкая задержка ответов',
+        'security_requirements': 'Защита персональных данных клиентов',
+        'project_status': 'in development',
+        'version': '1.3'
+    },
+    {
+        'project_name': 'Система управления контентом для медиа',
+        'programming_language': 'JavaScript',
+        'architecture': 'Headless CMS',
+        'description': 'Современная CMS для медиа-компаний с headless архитектурой. Поддержка мультимедиа контента, версионирование, workflow утверждения.',
+        'performance_requirements': 'Быстрая доставка контента, кэширование',
+        'security_requirements': 'Управление доступом, защита контента',
+        'project_status': 'active',
+        'version': '6.1'
+    },
+    {
+        'project_name': 'Платформа для трейдинга криптовалют',
+        'programming_language': 'Java',
+        'architecture': 'Event Sourcing',
+        'description': 'Высокочастотная торговая платформа для криптовалютных бирж. Реализация сложных торговых стратегий, анализ рынка в реальном времени.',
+        'performance_requirements': 'Микросекундная задержка',
+        'security_requirements': 'Финансовая безопасность, защита от атак',
+        'project_status': 'in development',
+        'version': '2.4'
+    },
+    {
+        'project_name': 'Система распознавания лиц для безопасности',
+        'programming_language': 'Python',
+        'architecture': 'Edge Computing',
+        'description': 'Система видеонаблюдения с распознаванием лиц в реальном времени. Edge computing для обработки на камерах, облачная аналитика.',
+        'performance_requirements': 'Обработка видео 30fps, низкая задержка',
+        'security_requirements': 'Защита биометрических данных',
+        'project_status': 'active',
+        'version': '4.2'
+    }
 ]
 
 sample_libraries = [
