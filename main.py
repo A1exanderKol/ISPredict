@@ -15,8 +15,6 @@ def initialize_sample_data(db_manager):
     """Инициализировать базу данных тестовыми данными согласно вашей структуре"""
 
     # Добавляем тестовые библиотеки
-
-
     for lib in tests.sample_libraries:
         db_manager.add_library(lib)
 
@@ -25,9 +23,6 @@ def initialize_sample_data(db_manager):
 
 def main():
     """Основная функция"""
-    # FIX для совместимости с Python 3.10+
-    import collections
-    import collections.abc
     collections.Mapping = collections.abc.Mapping
     collections.Sequence = collections.abc.Sequence
     collections.Iterable = collections.abc.Iterable
