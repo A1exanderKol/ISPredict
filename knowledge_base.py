@@ -10,13 +10,15 @@ from rules import *
 
 
 class KnowledgeBase(KnowledgeEngine,
-                    LanguageRules,
-                    LicenseRules,
-                    SecurityRules,
-                    PerformanceRules,
-                    IntegrationRules,
-                    ParadigmRules,
-                    QualityRules):
+                   LanguageRules,
+                   LicenseRules,
+                   SecurityRules,
+                   PerformanceRules,
+                   IntegrationRules,
+                   ParadigmRules,
+                   QualityRules,
+                   DevOpsRules,
+                   TestingRules):
 
     def __init__(self, db_manager):
         super().__init__()
