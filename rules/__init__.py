@@ -5,6 +5,8 @@ from .performance_rules import PerformanceRules
 from .integration_rules import IntegrationRules
 from .paradigm_rules import ParadigmRules
 from .quality_rules import QualityRules
+from .devops_rules import DevOpsRules
+from .testing_rules import TestingRules
 
 __all__ = [
     'LanguageRules',
@@ -13,5 +15,7 @@ __all__ = [
     'PerformanceRules',
     'IntegrationRules',
     'ParadigmRules',
-    'QualityRules'
+    'QualityRules',
+    'DevOpsRules',
+    'TestingRules'
 ]
