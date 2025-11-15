@@ -7,6 +7,7 @@ from .paradigm_rules import ParadigmRules
 from .quality_rules import QualityRules
 from .devops_rules import DevOpsRules
 from .testing_rules import TestingRules
+from .specialized_rules import SpecializedRules
 
 __all__ = [
     'LanguageRules',
@@ -17,5 +18,6 @@ __all__ = [
     'ParadigmRules',
     'QualityRules',
     'DevOpsRules',
-    'TestingRules'
+    'TestingRules',
+    'SpecializedRules'
 ]
