@@ -30,16 +30,6 @@ test_projects = [
         'version': '1.0'
     },
     {
-        'project_name': 'Система анализа больших данных',
-        'programming_language': 'Python',
-        'architecture': 'Distributed',
-        'description': 'Платформа для обработки и анализа больших объемов данных в реальном времени. Требуются библиотеки для параллельных вычислений и работы с большими данными. Машинное обучение для выявления аномалий.',
-        'performance_requirements': 'Обработка терабайтов данных',
-        'security_requirements': 'Шифрование данных, контроль доступа',
-        'project_status': 'active',
-        'version': '3.2'
-    },
-    {
         'project_name': 'Высоконагруженный REST API сервис',
         'programming_language': 'C#',
         'architecture': 'REST API',
@@ -189,16 +179,6 @@ test_projects = [
         'project_status': 'in development',
         'version': '2.4'
     },
-    {
-        'project_name': 'Система распознавания лиц для безопасности',
-        'programming_language': 'Python',
-        'architecture': 'Edge Computing',
-        'description': 'Система видеонаблюдения с распознаванием лиц в реальном времени. Edge computing для обработки на камерах, облачная аналитика.',
-        'performance_requirements': 'Обработка видео 30fps, низкая задержка',
-        'security_requirements': 'Защита биометрических данных',
-        'project_status': 'active',
-        'version': '4.2'
-    }
 ]
 
 sample_libraries = [
