@@ -13,41 +13,86 @@ class SecurityRules:
         salience=800
     )
     def reject_vulnerable_library(self, lib, vulns):
-        # Находим и удаляем рекомендацию
         recommendation = self.find_recommendation_fact(lib)
         if recommendation:
             self.retract(recommendation)
         self.declare(WarningFact(
             message=f"Библиотека {lib} отклонена: обнаружены уязвимости - {vulns}",
-            type='security'
+            type='security',
+            severity='critical'
         ))
 
     @Rule(
-        ProjectFact(sector=L('financial') | L('medical')),
+        ProjectFact(sector=L('financial') | L('medical') | L('government')),
         RecommendationFact(library=MATCH.lib),
+        LibraryFact(name=MATCH.lib, reputation=MATCH.rep),
+        TEST(lambda rep: rep < 8),
         salience=800
     )
-    def require_high_security(self, lib):
-        # Для финансового и медицинского сектора просто добавляем пометку
-        self.declare(RecommendationFact(
-            library=lib,
-            reason="Высокие требования безопасности",
-            priority='high',
-            security_required=True
-        ))
-
-    @Rule(
-        ProjectFact(sector='government'),
-        RecommendationFact(library=MATCH.lib),
-        LibraryFact(name=MATCH.lib, license=MATCH.license),
-        TEST(lambda license: license and 'proprietary' in license.lower()),
-        salience=800
-    )
-    def reject_proprietary_government(self, lib, license):
+    def require_high_reputation_sensitive_sectors(self, lib, rep):
         recommendation = self.find_recommendation_fact(lib)
         if recommendation:
             self.retract(recommendation)
         self.declare(WarningFact(
-            message=f"Библиотека {lib} отклонена: государственные проекты не могут использовать проприетарные библиотеки",
-            type='security'
+            message=f"Библиотека {lib} отклонена: репутация {rep}/10 недостаточна для чувствительного сектора",
+            type='security',
+            severity='high'
+        ))
+
+    @Rule(
+        ProjectFact(requires_encryption=True),
+        RecommendationFact(library=MATCH.lib),
+        LibraryFact(name=MATCH.lib, category=MATCH.category),
+        TEST(lambda category: category and any(
+            crypto in category.lower() for crypto in ['crypto', 'encryption', 'security'])),
+        salience=800
+    )
+    def prefer_crypto_libraries(self, lib):
+        self.modify_recommendation_priority(lib, 'high')
+
+    @Rule(
+        ProjectFact(handles_pii=True),
+        RecommendationFact(library=MATCH.lib),
+        LibraryFact(name=MATCH.lib, developer=MATCH.dev),
+        TEST(
+            lambda dev: dev and any(trusted in dev.lower() for trusted in ['microsoft', 'google', 'apache', 'oracle'])),
+        salience=800
+    )
+    def prefer_trusted_developers_pii(self, lib):
+        self.modify_recommendation_priority(lib, 'high')
+
+    @Rule(
+        ProjectFact(internet_facing=True),
+        RecommendationFact(library=MATCH.lib),
+        LibraryFact(name=MATCH.lib, last_update=MATCH.update),
+        TEST(lambda update: update and (2024 - update) > 1),
+        salience=800
+    )
+    def warn_outdated_internet_facing(self, lib, update):
+        self.declare(WarningFact(
+            message=f"Библиотека {lib} не обновлялась с {update} года - риск для интерфейсного приложения",
+            type='security',
+            severity='medium'
+        ))
+
+    @Rule(
+        ProjectFact(sector='financial'),
+        salience=800
+    )
+    def require_financial_security_standards(self):
+        self.declare(RecommendationFact(
+            library='OWASP Security Standards',
+            reason='Требования безопасности для финансового сектора',
+            priority='high'
+        ))
+
+    @Rule(
+        ProjectFact(compliance_requirements=True),
+        salience=800
+    )
+    def recommend_compliance_tools(self):
+        self.declare(RecommendationFact(
+            library='Compliance Check Tools',
+            reason='Инструменты для проверки соответствия стандартам',
+            priority='medium'
         ))
