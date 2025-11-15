@@ -13,9 +13,7 @@ class LicenseRules:
         salience=900
     )
     def reject_gpl_commercial(self, lib):
-        recommendation = self.find_recommendation_fact(lib)
-        if recommendation:
-            self.retract(recommendation)
+        self.retract_recommendation(lib)
         self.declare(WarningFact(
             message=f"Библиотека {lib} отклонена: GPL лицензия не подходит для коммерческого проекта",
             type='license',
@@ -29,9 +27,7 @@ class LicenseRules:
         salience=900
     )
     def reject_agpl_commercial(self, lib):
-        recommendation = self.find_recommendation_fact(lib)
-        if recommendation:
-            self.retract(recommendation)
+        self.retract_recommendation(lib)
         self.declare(WarningFact(
             message=f"Библиотека {lib} отклонена: AGPL лицензия требует открытия исходного кода",
             type='license',
@@ -44,6 +40,7 @@ class LicenseRules:
         salience=900
     )
     def allow_permissive_licenses(self, lib):
+        # Вместо модификации создаем новую рекомендацию
         self.declare(RecommendationFact(
             library=lib,
             reason="Разрешительная лицензия",
@@ -59,9 +56,7 @@ class LicenseRules:
         salience=900
     )
     def reject_proprietary_government(self, lib, license):
-        recommendation = self.find_recommendation_fact(lib)
-        if recommendation:
-            self.retract(recommendation)
+        self.retract_recommendation(lib)
         self.declare(WarningFact(
             message=f"Библиотека {lib} отклонена: государственные проекты требуют открытого ПО",
             type='license',
@@ -90,4 +85,10 @@ class LicenseRules:
         salience=900
     )
     def prefer_osi_approved(self, lib):
-        self.modify_recommendation_priority(lib, 'high')
+        # Просто создаем новую рекомендацию с высоким приоритетом
+        self.declare(RecommendationFact(
+            library=lib,
+            reason="OSI approved open source license",
+            priority='high',
+            license_approved=True
+        ))

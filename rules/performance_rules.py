@@ -6,17 +6,20 @@ from facts import ProjectFact, RecommendationFact, LibraryFact, WarningFact
 class PerformanceRules:
     """Правила производительности и оптимизации"""
 
-    @Rule(
-        ProjectFact(project_type='mobile'),
-        RecommendationFact(library=MATCH.lib),
-        salience=700
-    )
-    def warn_mobile_performance(self, lib):
-        self.declare(WarningFact(
-            message=f"Для мобильного приложения рекомендуется проверить размер библиотеки {lib}",
-            type='performance',
-            severity='medium'
-        ))
+    class PerformanceRules:
+        """Правила производительности и оптимизации"""
+
+        @Rule(
+            ProjectFact(project_type='mobile'),
+            RecommendationFact(library=MATCH.lib),
+            salience=700
+        )
+        def warn_mobile_performance(self, lib):
+            self.declare(WarningFact(
+                message=f"Для мобильного приложения рекомендуется проверить размер библиотеки {lib}",
+                type='performance',
+                severity='medium'
+            ))
 
     @Rule(
         ProjectFact(project_type='big_data'),

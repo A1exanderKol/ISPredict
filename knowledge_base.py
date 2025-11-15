@@ -10,15 +10,15 @@ from rules import *
 
 
 class KnowledgeBase(KnowledgeEngine,
-                   LanguageRules,
-                   LicenseRules,
-                   SecurityRules,
-                   PerformanceRules,
-                   IntegrationRules,
-                   ParadigmRules,
-                   QualityRules,
-                   DevOpsRules,
-                   TestingRules):
+                    LanguageRules,
+                    LicenseRules,
+                    SecurityRules,
+                    PerformanceRules,
+                    IntegrationRules,
+                    ParadigmRules,
+                    QualityRules,
+                    DevOpsRules,
+                    TestingRules):
 
     def __init__(self, db_manager):
         super().__init__()
@@ -44,7 +44,23 @@ class KnowledgeBase(KnowledgeEngine,
                 return fact
         return None
 
-    # ... остальные методы без изменений (analyze_project, _load_project_data, и т.д.)
+    def modify_recommendation_priority(self, library_name, new_priority):
+        """Изменить приоритет рекомендации"""
+        recommendation = self.find_recommendation_fact(library_name)
+        if recommendation:
+            # Создаем новую рекомендацию с обновленным приоритетом
+            self.declare(RecommendationFact(
+                library=library_name,
+                reason=recommendation.get('reason', '') + " (приоритет повышен)",
+                priority=new_priority
+            ))
+
+    def retract_recommendation(self, library_name):
+        """Отозвать рекомендацию"""
+        recommendation = self.find_recommendation_fact(library_name)
+        if recommendation:
+            self.retract(recommendation)
+
 
     def analyze_project(self, project_id):
         """Проанализировать проект и выдать рекомендации"""

@@ -13,9 +13,7 @@ class SecurityRules:
         salience=800
     )
     def reject_vulnerable_library(self, lib, vulns):
-        recommendation = self.find_recommendation_fact(lib)
-        if recommendation:
-            self.retract(recommendation)
+        self.retract_recommendation(lib)
         self.declare(WarningFact(
             message=f"Библиотека {lib} отклонена: обнаружены уязвимости - {vulns}",
             type='security',
@@ -30,9 +28,7 @@ class SecurityRules:
         salience=800
     )
     def require_high_reputation_sensitive_sectors(self, lib, rep):
-        recommendation = self.find_recommendation_fact(lib)
-        if recommendation:
-            self.retract(recommendation)
+        self.retract_recommendation(lib)
         self.declare(WarningFact(
             message=f"Библиотека {lib} отклонена: репутация {rep}/10 недостаточна для чувствительного сектора",
             type='security',
@@ -48,7 +44,12 @@ class SecurityRules:
         salience=800
     )
     def prefer_crypto_libraries(self, lib):
-        self.modify_recommendation_priority(lib, 'high')
+        # Создаем новую рекомендацию с высоким приоритетом
+        self.declare(RecommendationFact(
+            library=lib,
+            reason="Криптографическая библиотека для требований шифрования",
+            priority='high'
+        ))
 
     @Rule(
         ProjectFact(handles_pii=True),
@@ -59,15 +60,13 @@ class SecurityRules:
         salience=800
     )
     def prefer_trusted_developers_pii(self, lib):
-        self.modify_recommendation_priority(lib, 'high')
+        # Создаем новую рекомендацию с высоким приоритетом
+        self.declare(RecommendationFact(
+            library=lib,
+            reason="Библиотека от доверенного разработчика для работы с PII",
+            priority='high'
+        ))
 
-    @Rule(
-        ProjectFact(internet_facing=True),
-        RecommendationFact(library=MATCH.lib),
-        LibraryFact(name=MATCH.lib, last_update=MATCH.update),
-        TEST(lambda update: update and (2024 - update) > 1),
-        salience=800
-    )
     def warn_outdated_internet_facing(self, lib, update):
         self.declare(WarningFact(
             message=f"Библиотека {lib} не обновлялась с {update} года - риск для интерфейсного приложения",
